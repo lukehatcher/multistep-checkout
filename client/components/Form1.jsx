@@ -8,26 +8,15 @@ class Form1 extends React.Component {
             emailInput: '',
             passwordInput: ''
         }
-        // this.handleTextInput = this.handleTextInput.bind(this);
+        this.handleFormChange = this.handleFormChange.bind(this);
     }
 
-    // handleNameInput(e) {
-    //     this.setState({
-    //         nameInput: e.target.value
-    //     });
-    // }
-
-    // handleEmailInput(e) {
-    //     this.setState({
-    //         emailInput: e.target.value
-    //     })
-    // }
-
-    // handlePasswordInput(e) {
-    //     this.setState({
-    //         passwordInput: e.target.value
-    //     })
-    // }
+    handleFormChange(e, stateName) {
+        let input = e.target.value;
+        this.setState({
+            [stateName]: input
+        });
+    }
 
     render() {
         return (
@@ -35,21 +24,43 @@ class Form1 extends React.Component {
                 <form>
                     <div>
                         <label>full name:</label>
-                        <input type="text" onChange={this.handleNameInput}></input>
+                        <input
+                        type="text"
+                        onChange={(e) => {
+                            this.handleFormChange(e, 'nameInput');
+                        }}
+                        />
                     </div>
 
                     <div>
                         <label>email:</label>
-                        <input type="text"></input>
+                        <input
+                        type="text"
+                        onChange={(e) => {
+                            this.handleFormChange(e, 'emailInput');
+                        }}
+                        />
                     </div>
 
                     <div>
                         <label>password:</label>
-                        <input type="text"></input>
+                        <input
+                        type="text"
+                        onChange={(e) => {
+                            this.handleFormChange(e, 'passwordInput');
+                        }}
+                        />
                     </div>
                 </form>
                 {/* handleF1Next also needs to setstate and query db*/}
-                <button onClick={this.props.handleF1Next}>next</button>
+                <button onClick={() => {
+                    let f1Data = {
+                        name: this.state.nameInput,
+                        email: this.state.emailInput,
+                        password: this.state.passwordInput
+                    }
+                    this.props.handleF1Next(f1Data);
+                }}>next</button>
             </div>
         );
     }
@@ -57,12 +68,3 @@ class Form1 extends React.Component {
 
 
 export default Form1;
-
-// F1 collects name, email, and password for account creation.
-
-// const Form1 = (props) => {
-//     return {
-//         // do things
-//     }
-// }
-

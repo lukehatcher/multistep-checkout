@@ -45,25 +45,39 @@ class App extends React.Component {
         });
     }
 
-    handleF1Next() {
+    handleF1Next(f1Data) {
+        // param f1Data: obj with name, email, and pass props
         this.setState({
             f1: false,
-            f2: true
+            f2: true,
+            name: f1Data.name,
+            email: f1Data.email,
+            password: f1Data.password
+        }, () => {console.log('lasidug', this.state.password)});
+    }
+
+    handleF2Next(f2Data) {
+        this.setState({
+            f2: false,
+            f3: true,
+            line1: f2Data.line1,
+            line2: f2Data.line2,
+            city: f2Data.city,
+            state: f2Data.state,
+            zipcode: f2Data.zipcode,
+            cell: f2Data.cell,
         });
     }
 
-    handleF2Next() {
-        this.setState({
-            f2: false,
-            f3: true
-        })
-    }
-
-    handleF3Next() {
+    handleF3Next(f3Data) {
         this.setState({
             f3: false,
-            confirmationPage: true
-        })
+            confirmationPage: true,
+            ccnumb: f3Data.ccnumb,
+            expdate: f3Data.expdate,
+            cvv: f3Data.cvv,
+            billzip: f3Data.billzip
+        });
     }
 
     handlePlaceOrderClick() {
