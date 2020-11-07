@@ -3,6 +3,7 @@ import Confirmation from './Confirmation.jsx';
 import Form1 from './Form1.jsx';
 import Form2 from './Form2.jsx';
 import Form3 from './Form3.jsx';
+import axios from 'axios';
 
 class App extends React.Component {
     constructor(props) {
@@ -53,7 +54,7 @@ class App extends React.Component {
             name: f1Data.name,
             email: f1Data.email,
             password: f1Data.password
-        }, () => {console.log('lasidug', this.state.password)});
+        });
     }
 
     handleF2Next(f2Data) {
@@ -77,6 +78,28 @@ class App extends React.Component {
             expdate: f3Data.expdate,
             cvv: f3Data.cvv,
             billzip: f3Data.billzip
+        }, () => {
+            let dataObj = {
+                name: this.state.name,
+                email: this.state.email,
+                password: this.state.password,
+                line1: this.state.line1,
+                line2: this.state.line2,
+                city: this.state.city,
+                state: this.state.state,
+                zipcode: this.state.zipcode,
+                cell: this.state.cell,
+                ccnumb: this.state.ccnumb,
+                expdate: this.state.expdate,
+                cvv: this.state.cvv,
+                billzip: this.state.billzip
+            };
+            axios.post('/shop', dataObj)
+                .then(() => {
+                })
+                .catch((err) => {
+                    console.log('err in client post req', err);
+                })
         });
     }
 
@@ -86,7 +109,7 @@ class App extends React.Component {
         this.setState({
             confirmationPage: false,
             checkingOut: true
-        })
+        });
     }
 
     render() {
@@ -97,7 +120,7 @@ class App extends React.Component {
                 {this.state.f1 ? <Form1 handleF1Next={this.handleF1Next} /> : ''}
                 {this.state.f2 ? <Form2 handleF2Next={this.handleF2Next} /> : ''}
                 {this.state.f3 ? <Form3 handleF3Next={this.handleF3Next}/> : ''}
-                {this.state.confirmationPage ? <Confirmation handlePlaceOrderClick={this.handlePlaceOrderClick} /> : ''}
+                {this.state.confirmationPage ? <Confirmation handlePlaceOrderClick={this.handlePlaceOrderClick} name={this.state.name} /> : ''}
             </div>
 
         );

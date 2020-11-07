@@ -26,7 +26,7 @@ class Form2 extends React.Component {
             <div>
                 <form>
                     <div>
-                        <label>shipping adress line 1:</label>
+                        <label>shipping address line 1:</label>
                         <input
                         type="text"
                         onChange={(e) => {
