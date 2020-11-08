@@ -39,11 +39,11 @@ const save = (dataObj) => {
     return newDocument.save();
 }
 
-const find = () => {
+const find = (searchName) => {
     // return the document for that name in the db
-    // return UserInfo.find({name: searchName});
-    return UserInfo.find({});
+    return UserInfo.find({name: searchName});
 }
+mongoose.set('debug', true);
 
 module.exports.save = save;
 module.exports.find = find;

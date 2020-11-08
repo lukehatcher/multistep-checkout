@@ -23,9 +23,10 @@ app.post('/shop', (req, res) => {
 });
 
 // app.get('/users:name', (req, res) => {
-app.get('/shop', (req, res) => {
-// let name = req.params.name
-    db.find()
+app.get('/shop/:name', (req, res) => {
+    let searchName = req.params.name;
+    // console.log('THE NAME FROM URL PARAMS:', searchName.split(''));
+    db.find(searchName)
         .then((doc) => {
             console.log('hiiiii');
             res.send(doc);

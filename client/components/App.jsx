@@ -33,11 +33,9 @@ class App extends React.Component {
         this.handleF2Next = this.handleF2Next.bind(this);
         this.handleF3Next = this.handleF3Next.bind(this);
         this.handlePlaceOrderClick = this.handlePlaceOrderClick.bind(this);
-    }
 
-// F1 collects name, email, and password for account creation.
-// F2 collects ship to address (line 1, line 2, city, state, zip code) and phone number.
-// F3 collects credit card #, expiry date, CVV, and billing zip code.
+        this.fetchUserInfo = this.fetchUserInfo.bind(this);
+    }
 
     handleCheckoutClick() {
         this.setState({
@@ -96,11 +94,27 @@ class App extends React.Component {
             };
             axios.post('/shop', dataObj)
                 .then(() => {
+                    console.log('data should be saved');
+                    this.fetchUserInfo();
+                    // ################
+                    // POST IT NOT
+                    // ################
                 })
                 .catch((err) => {
                     console.log('err in client post req', err);
                 })
         });
+    }
+
+    fetchUserInfo() {
+        let url = `/shop/${this.state.name}`;
+        axios.get(url)
+            .then((response) => {
+                console.log('res cliet data', response);
+            })
+            .catch((err) => {
+                console.log('err in client get req: ', err);
+            })
     }
 
     handlePlaceOrderClick() {
@@ -113,6 +127,7 @@ class App extends React.Component {
     }
 
     render() {
+        console.log('just re redered', this.state);
         return (
             <div>
                 {this.state.checkingOut ? <h1>continue shopping or checkout below</h1> : ''}
